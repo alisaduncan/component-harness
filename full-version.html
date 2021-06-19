@@ -1,0 +1,661 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="description" content="What are Angular CDK test harnesses, how to use component testing harnesses for Angular material component, and how write your own component harness to tidy up your unit tests.">
+		<meta name="keywords" content="Alisa Duncan, women in tech, AngularKC, google developers experts">
+		<meta property="og:title" content="Tidy up your tests using component harnesses to write tests that bring you joy">
+		<meta property="og:type" content="website">
+		<meta property="og:image" content="http://alisaduncan.github.io/component-harness/img/cover.png">
+		<meta property="og:url" content="http://alisaduncan.github.io/component-harness">
+		<meta property="og:description" content="What are Angular CDK test harnesses, how to use component testing harnesses for Angular material component, and how write your own component harness to tidy up your unit tests.">
+		<meta property="twitter:card" content="twitter:card">
+		<meta property="twitter:title" content="Tidy up your tests using component harnesses to write tests that bring you joy">
+		<meta property="twitter:creator" content="@AlisaDuncan">
+		<meta property="twitter:image" content="http://alisaduncan.github.io/component-harness/img/cover.png">
+		<meta property="twitter:url" content="http://alisaduncan.github.io/component-harness">
+		<meta property="twitter:description" content="What are Angular CDK test harnesses, how to use component testing harnesses for Angular material component, and how write your own component harness to tidy up your unit tests.">
+
+		<title>Tidy up your tests</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/alisa.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/base16/classic-light.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section class="title" data-background="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80">
+					<div style="margin-top: 6rem;">
+						<h1>Tidy up your tests</h1> 
+						<h2 style="margin-top: 2rem; text-transform: none; color: #5a5a5a">use component harnesses to write tests that bring you <span style="color: #ff715b;">joy</span></h2>
+					</div>
+					<h4>Alisa Duncan</h4>
+				</section>
+					<section class="presenter" data-background="#d8e4bc">
+					<div class="heading">
+					  <img class="plain" src="img/alisa-cropped.jpg" alt="Alisa Duncan">
+					  <h2>Alisa Duncan</h2>
+					</div>
+					<div class="about">
+						<p>
+							<span>Software Architect</span> | 
+							<span>Co-organizer <a href="https://www.meetup.com/angularkc/">AngularKC</a></span> | 
+							<span>Core Team <a href="https://ng-girls.org">ngGirls</a></span> | 
+							<span>Angular GDE</span>
+						</p>
+						<p>
+							Loves learning about, discussing, and writing automated tests
+						</p>
+						<p>
+							Enjoys reading a book and drinking a glass of red wine on the porch
+						</p>
+					</div>
+					<div class="contact">
+						 <h4>@AlisaDuncan</h4>
+						 <div class="social">
+							<a href="https://twitter.com/AlisaDuncan"><img class="plain" src="img/twitter.png"></a>
+							<a href="https://github.com/alisaduncan"><img class="plain" src="img/github.png"></a>
+							<a href="https://dev.to/AlisaDuncan"><img class="plain" src="img/dev.png"></a>
+						 </div>
+					</div>
+				</section>
+				<section class="r-vstack">
+					<h2>Tests that don't bring us joy</h2>
+					<div style="width:90%; margin-top: 3rem;" class="r-hstack justify-between items-start">
+						<div style="width: 67%;" class="text-content">
+							<p class="fragment" data-fragment-index="0">Do your component tests feel "cluttered"?</p>
+					  		<p style="margin: 2rem 0;" class="fragment" data-fragment-index="1">Is it difficult to read and understand your component unit tests at a glance?</p>
+					  		<p class="fragment" data-fragment-index="2">Do you want tests to focus on testing behavior without having to deal with querying the DOM?</p>
+						</div>
+						<div class="r-stack" style="align-self: center;">							
+							<image class="fragment current-visible" data-fragment-index="0" 
+							src="https://images.unsplash.com/flagged/photo-1563713076139-d9f44e576124?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+							width="500" height="350"
+							/>
+							<image class="fragment current-visible" data-fragment-index="1" 
+							src="https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1048&q=80"
+							width="500" height="350"
+							/>
+							<image class="fragment current-visible" data-fragment-index="2" 
+							src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+							width="500" height="350"
+							/>
+						</div>
+					</div>
+				</section>
+				<section class="section-title" data-background="https://images.unsplash.com/photo-1546387903-6d82d96ccca6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80">
+					<h3 style="margin-left: 5rem; text-align: right;">Tidy your tests and <br/>focus on testing what matters <br/>with component harnesses</h2>
+				</section>
+				<section class="ad-vstack">
+					<h2>What are component test harnesses?</h2>
+					<div class="text-content">
+					  <p class="fragment fade-in-then-semi-out">Test harnesses are a set of APIs in Angular CDK that support testing interactions with components</p>
+					  <p class="fragment fade-in-then-semi-out">Idea for Test Harnesses conceived from <code>PageObject</code> pattern</p>
+					  <p class="fragment fade-in-then-semi-out">Component test harnesses implement the Test Harness APIs</p>
+					  <p class="fragment fade-in-then-semi-out">All Angular Material components have test harnesses built-in in v12</p> 
+					</div>
+				</section>
+				<section class="ad-vstack">
+					<h2>Why is this useful?</h2>
+					<div class="text-content">
+						<p class="fragment fade-in-then-semi-out">Tests that are easier to read</p>
+						<p class="fragment fade-in-then-semi-out">Tests that use a public API</p>
+					  <p class="fragment fade-in-then-semi-out">Allows you and your team to write tests that focus on behavior</p>
+					</div>
+				</section>
+				<section class="section-title" data-background="#758e4f">
+					<h2>Let's write a test</h2>
+				</section>
+				<!-- <section data-background-iframe="https://angularkc.github.io/tour-of-heroes-base/dashboard" data-background-interactive> -->
+					<section data-background-iframe="http://localhost:4200/" data-background-interactive>
+
+					<div class="iframe-caption">
+						<h2>A tidy list todo app</h2>
+						<p>Consider the tests you'd write for an app like this. We'll look at a task view.</p>
+					</div>
+				</section>
+				<section class="r-vstack">
+					<h2>The code we'll test</h2>
+					<div style="width: 70%;">
+						<pre><code class="html" data-trim data-line-numbers="1-14|5"><script type="text/template">
+							<div class="tidy-task">
+								<mat-checkbox color="accent"
+													[checked]="tidyTask.completed"
+													(change)="onChecked()"
+													[ngClass]="tidyTask.completed ? 'tidy-task-completed' : ''">
+									{{tidyTask.description}}
+								</mat-checkbox>
+								<div class="actions">
+									<mat-icon matBadge="{{tidyTask.rating}}" matBadgeColor="primary">favorite_border</mat-icon>
+									<button mat-icon-button color="accent" (click)="onDeleted()">
+										<mat-icon>delete</mat-icon>
+									</button>
+								</div>
+							</div>
+						</script>
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack" data-transition="slide-in none" data-auto-animate>
+					<h2>Example test</h2>
+					<div style="width: 60%;">
+						<pre data-id="test-no-harness"><code class="typescript" data-trim data-line-numbers="1-18|2-3|2,5-7|2,8|10-13|15,17|16-17">
+it('should apply completed class to match task completion', () => {
+	const matCb = fixture.debugElement.query(By.css('mat-checkbox'));
+	expect(matCb).toBeTruthy();
+
+	const cbEl = matCb.query(By.css('input'));
+	expect(cbEl).toBeTruthy();
+	expect(cbEl.nativeElement.checked).toBe(false);
+	expect(matCb.nativeElement.classList).not.toContain('tidy-task-completed');
+
+	const cbClickEl =
+		fixture.debugElement.query(By.css('.mat-checkbox-inner-container'));
+	cbClickEl.nativeElement.click();
+	fixture.detectChanges();
+
+	expect(cbEl.nativeElement.checked).toBe(true);
+	expect(matCb.nativeElement.classList).toContain('tidy-task-completed');
+	expect(component.tidyTask.completed).toBeTrue();
+});
+						</code></pre>
+					</div>
+		  		</section>
+				<section class="r-vstack" data-transition="none" data-auto-animate>
+					<h2>Example test</h2>
+					<div class="r-hstack justify-between items-start">
+						<div>
+							<pre data-id="test-no-harness" style="width: 98%;"><code class="typescript" data-trim data-line-numbers style="opacity: 0.6"> 
+it('should apply completed class to match task completion', () => {
+	const matCb = fixture.debugElement.query(By.css('mat-checkbox'));
+	expect(matCb).toBeTruthy();
+
+	const cbEl = matCb.query(By.css('input'));
+	expect(cbEl).toBeTruthy();
+	expect(cbEl.nativeElement.checked).toBe(false);
+	expect(matCb.nativeElement.classList).not.toContain('tidy-task-completed');
+
+	const cbClickEl =
+		fixture.debugElement.query(By.css('.mat-checkbox-inner-container'));
+	cbClickEl.nativeElement.click();
+	fixture.detectChanges();
+
+	expect(cbEl.nativeElement.checked).toBe(true);
+	expect(matCb.nativeElement.classList).toContain('tidy-task-completed');
+	expect(component.tidyTask.completed).toBeTrue();
+});
+							</code></pre>
+						</div>
+						<div class="fragment">
+							<pre data-id="test-with-harness" style="width: 98%;"><code class="typescript" data-trim data-line-numbers="1-12|2|2-3|2,5-6|8|10|11">
+it('should apply completed class to match task completion', async () => {
+	const cb = await loader.getHarness(MatCheckboxHarness);
+	expect(await cb.isChecked()).toBeFalse();
+
+	const cbHost = await cb.host();
+	expect(await cbHost.hasClass('tidy-task-completed')).not.toBeTrue();
+
+	await cb.toggle();
+
+	expect(await cb.isChecked()).toBeTrue();
+	expect(await cbHost.hasClass('tidy-task-completed')).toBeTrue();
+});  
+							</code></pre>
+						</div>
+					</div>
+		  		</section>
+				<section class="r-vstack" data-transition="none slide-out" data-auto-animate>
+					<h2>Example test</h2>
+					<div style="width: 60%;">
+						<pre data-id="test-with-harness"><code class="typescript" data-trim data-line-numbers>
+it('should apply completed class to match task completion', async () => {
+	const cb = await loader.getHarness(MatCheckboxHarness);
+	expect(await cb.isChecked()).toBeFalse();
+
+	const cbHost = await cb.host();
+	expect(await cbHost.hasClass('tidy-task-completed')).not.toBeTrue();
+
+	await cb.toggle();
+
+	expect(await cb.isChecked()).toBeTrue();
+	expect(await cbHost.hasClass('tidy-task-completed')).toBeTrue();
+});  
+						</code></pre>
+					</div>
+		  		</section>
+				<section class="r-vstack" data-state="code-snippet" data-code-snippet-name="test-harness-api">
+					<h2>The CDK testing API</h2>
+					<div class="r-hstack justify-between items-start instructions">
+						<div class="step">
+							<p class="fragment fade-in-then-semi-out" data-code-snippet="test-harness-api-1">Get a harness</p>
+							<p class="fragment fade-in-then-semi-out" data-code-snippet="test-harness-api-2">Get all harnesses</p>
+							<p class="fragment fade-in-then-semi-out" data-code-snippet="test-harness-api-3">Get a harness within a node</p>
+							<p class="fragment fade-in-then-semi-out" data-code-snippet="test-harness-api-4">Filter for specific harnesses</p>
+							<p class="fragment fade-in-then-semi-out" data-code-snippet="test-harness-api-5">Access the host element</p>
+							<p class="fragment fade-in-then-semi-out" data-code-snippet="test-harness-api-6">Optimize multiple actions</p>
+						</div>
+						<div class="output">
+							<pre><code class="typescript" data-trim data-line-numbers data-code-snippet="test-harness-api-1">
+								const btn: MatButtonHarness = await loader.getHarness(MatButtonHarness);
+							</code></pre>
+							<pre><code class="typescript" data-trim data-line-numbers data-code-snippet="test-harness-api-2">
+								const btns: MatButtonHarness[] = await loader.getAllHarnesses(MatButtonHarness);
+							</code></pre>
+							<pre><code class="typescript" data-trim data-line-numbers data-code-snippet="test-harness-api-3">
+								const childLoader: HarnessLoader = await loader.getChildLoader('.my-selector');
+								const btn: MatButtonHarness = await childLoader.getHarness(MatButton);
+							</code></pre>
+							<pre><code class="typescript" data-trim data-line-numbers data-code-snippet="test-harness-api-4">
+								const btns: HarnessLoader = await loader.getAllHarnesses(MatButtonHarness.with({text: 'delete'}));
+							</code></pre>
+							<pre><code class="typescript" data-trim data-line-numbers data-code-snippet="test-harness-api-5">
+								const btn: HarnessLoader = await loader.getHarnesses(MatButtonHarness);
+								const btnHost: TestElement = await btn.host();
+								await btnHost.hover();
+							</code></pre>
+							<pre><code class="typescript" data-trim data-line-numbers data-code-snippet="test-harness-api-6">
+								const checkbox: HarnessLoader = await loader.getHarnesses(MatCheckboxHarness);
+								const [checked, label] = await parallel(() => [
+									checkbox.isChecked(),
+									checkbox.getLabelText()
+								]);
+							</code></pre>
+						</div>
+					</div>
+				</section>
+				<section class="section-title" data-background="#424b4c">
+					<h2>The CDK testing API</h2>
+				</section>
+				<section class="ad-vstack"> 
+					<section class="r-vstack">
+						<h3>Get harnesses</h3>
+						<pre><code class="typescript" data-trim data-line-numbers="1-6|1|3|5-6|1-6">
+							const btn: MatButtonHarness = await loader.getHarness(MatButtonHarness);
+							
+							const btns: MatButtonHarness[] = await loader.getAllHarnesses(MatButtonHarness);
+
+							const childLoader: HarnessLoader = await loader.getChildLoader('.my-selector');
+							const childBtn: MatButtonHarness = await childLoader.getHarness(MatButton);
+						</code></pre>
+					</section>
+					<section class="r-vstack">
+						<h3>Filter for specific harnesses</h3>
+						<pre><code class="typescript" data-trim data-line-numbers>
+							const btns: HarnessLoader = await loader.getAllHarnesses(MatButtonHarness.with({text: 'delete'}));
+						</code></pre>
+					</section>
+					<section class="r-vstack">
+						<h3>Access the host element</h3>
+						<pre><code class="typescript" data-trim data-line-numbers>
+							const btn: HarnessLoader = await loader.getHarnesses(MatButtonHarness);
+							const btnHost: TestElement = await btn.host();
+							await btnHost.hover();						
+						</code></pre>
+					</section>
+					<section class="r-vstack">
+						<h3>Optimize multiple actions</h3>
+						<pre><code class="typescript" data-trim data-line-numbers>
+							const checkbox: HarnessLoader = await loader.getHarnesses(MatCheckboxHarness);
+							const [checked, label] = await parallel(() => [
+								checkbox.isChecked(),
+								checkbox.getLabelText()
+							]);					
+						</code></pre>
+					</section>
+				</section>
+
+				<section class="r-vstack" data-auto-animate>
+					<h2>Writing a test using component harnesses</h2>
+					<div style="width: 70%;">
+						<pre data-id="using-component-harnesses"><code class="typescript" data-trim data-line-numbers>
+describe('TidyTaskComponent - with testing harnesses', () => {
+  let component: TidyTaskComponent;
+  let fixture: ComponentFixture&lt;TidyTaskComponent&gt;;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({...});
+
+    fixture = TestBed.createComponent(TidyTaskComponent);
+    component = fixture.componentInstance;
+    component.tidyTask = {id: 1, description: 'tidy up!', completed: false, rating: 3}
+    fixture.detectChanges();
+  });
+});
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack" data-auto-animate>
+					<h2>Writing a test using component harnesses</h2>
+					<div style="width: 70%;">
+						<pre data-id="using-component-harnesses"><code class="typescript" data-trim data-line-numbers="10,2|19,1|3-5">
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { HarnessLoader } from '@angular/cdk/testing';
+import { MatCheckboxHarness } from '@angular/material/checkbox/testing';
+import { MatButtonHarness } from '@angular/material/button/testing';
+import { MatIconHarness } from '@angular/material/icon/testing';
+
+describe('TidyTaskComponent - with testing harnesses', () => {
+  let component: TidyTaskComponent;
+  let fixture: ComponentFixture&lt;TidyTaskComponent&gt;;
+  let loader: HarnessLoader;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({...});
+
+    fixture = TestBed.createComponent(TidyTaskComponent);
+    component = fixture.componentInstance;
+    component.tidyTask = {id: 1, description: 'tidy up!', completed: false, rating: 3}
+    fixture.detectChanges();
+    loader = TestbedHarnessEnvironment.loader(fixture);
+  });
+});
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack" data-auto-animate>
+					<h2>Writing a test using component harnesses</h2>
+					<div style="width: 70%;">
+						<pre data-id="using-component-harnesses"><code class="typescript" data-trim data-line-numbers="14-18|15|17|14-18|33-42|37|37-38|33-42|20-31|21|22,27|24-25|1-43">
+describe('TidyTaskComponent - with testing harnesses', () => {
+  let loader: HarnessLoader;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({...});
+
+    fixture = TestBed.createComponent(TidyTaskComponent);
+    component = fixture.componentInstance;
+    component.tidyTask = {id: 1, description: 'tidy up!', completed: false, rating: 3}
+    fixture.detectChanges();
+    loader = TestbedHarnessEnvironment.loader(fixture);
+  });
+
+  it('should load harness', async () => {
+	 const chkboxes = await loader.getAllHarnesses(MatCheckboxHarness);
+	 expect(chkboxes).toHaveSize(1);
+	 await expectAsync(loader.getHarness(MatButton)).toBeResolved();
+  });
+
+  it('should apply completed class to match task completion', async () => {
+    const checkbox = await loader.getHarness(MatCheckboxHarness.with({label: 'tidy up!'}));
+    expect(await checkbox.isChecked()).toBeFalse();
+
+    const checkboxHost = await checkbox.host();
+    expect(await checkboxHost.hasClass('tidy-task-completed')).not.toBeTrue();
+
+    await checkbox.toggle();
+
+    expect(await checkbox.isChecked()).toBeTrue();
+    expect(await checkboxHost.hasClass('tidy-task-completed')).toBeTrue();
+  });
+
+  it('should emit delete event when a task is deleted', async () => {
+    const deletedSpy = spyOn(component.deleted, 'emit').and.stub();
+    const expected = component.tidyTask;
+
+    const actionsLoader = await loader.getChildLoader('.actions');
+    const button = await actionsLoader.getHarness(MatButtonHarness);
+    await button.click();
+
+    expect(deletedSpy).toHaveBeenCalledOnceWith(expected);
+  });
+});
+						</code></pre>
+					</div>
+				</section>
+				<section class="ad-vstack">
+					<h2>These are integration tests</h2>
+					<div class="text-content">
+						<p class="fragment fade-in-then-semi-out">You are manipulating child components</p>
+						<p class="fragment fade-in-then-semi-out">Test purists may prefer shallow tests</p>
+						<p class="fragment fade-in-then-semi-out">Write your tests with intention</p>
+					</div>
+				</section>
+				<section class="section-title" data-background="#445d88">
+					<h2>Implementing a test harness for a custom component</h2>
+			  </section>
+				<!-- <section data-background-iframe="https://angularkc.github.io/tour-of-heroes-base/dashboard" data-background-interactive> -->
+				<section data-background-iframe="http://localhost:4200/" data-background-interactive>
+					<div class="iframe-caption">
+						<h2>A tidy list todo app</h2>
+						<p>Take a look at the sentiment rating. We'll write a test harness for the component.</p>
+					</div>
+				</section>
+								<section class="r-vstack">
+					<h2>The component we'll write a harness for</h2>
+					<div style="width: 70%;">
+						<pre><code class="typescript" data-trim data-line-numbers="1-23|2|4,9-11"><script type="text/template">
+							@Component({
+								selector: 'app-sentiment-rating',
+								template: `
+								  <button mat-icon-button
+											 *ngFor="let rating of sentimentRating; index as i"
+											 (click)="onRating(rating)"
+											 [color]="rate > i ? 'accent' : ''">
+							 
+									 <mat-icon *ngIf="i >= rate">favorite_border</mat-icon>
+									 <mat-icon *ngIf="rate > i">favorite</mat-icon> 
+								  </button>
+								`
+							 })
+							 export class SentimentRatingComponent{
+								public sentimentRating = [1, 2, 3, 4, 5];
+								@Input() public rate = 0;
+								@Output() public changed = new EventEmitter<number>();
+							 
+								public onRating(rating: number): void {
+								  this.rate = rating;
+								  this.changed.emit(rating);
+								}
+							 }
+						</script>
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack">
+					<h2>Define the filters interface to support querying</h2>
+					<div style="width: 60%;">
+						<pre><code class="typescript" data-trim data-line-numbers="1-5|3,1|4|1-5">
+import { BaseHarnessFilters } from '@angular/cdk/testing';
+
+export interface SentimentRatingHarnessFilters extends BaseHarnessFilters {
+	rate?: number;
+}						
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack" data-auto-animate>
+					<h2>Implement your component test harness</h2>
+					<div style="width: 90%">
+						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers>
+import { ComponentHarness } from '@angular/cdk/testing';
+
+export class SentimentRatingHarness extends ComponentHarness {
+
+}				
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack" data-auto-animate>
+					<h2>Implement your component test harness</h2>
+					<div style="width: 90%">
+						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="4">
+import { ComponentHarness } from '@angular/cdk/testing';
+
+export class SentimentRatingHarness extends ComponentHarness {
+	static hostSelector = 'app-sentiment-rating';
+}				
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack" data-auto-animate>
+					<h2>Implement your component test harness</h2>
+					<div style="width: 90%">
+						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="6|8-10|12-14|1-15">
+import { AsyncFactoryFn, ComponentHarness, TestElement } from '@angular/cdk/testing';
+
+export class SentimentRatingHarness extends ComponentHarness {
+	static hostSelector = 'app-sentiment-rating';
+
+	private _rateButtons: AsyncFactoryFn&lt;TestElement[]&gt; = this.locatorForAll('button');
+
+	public async getRate(): Promise&lt;number&gt; {
+
+	}
+
+	public async setRate(rate: number): Promise&lt;void&gt; {
+	
+	}
+}				
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack" data-auto-animate>
+					<h2>Implement your component test harness</h2>
+					<div style="width: 90%">
+						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="8-11|9|10|1-16">
+import { AsyncFactoryFn, ComponentHarness, parallel, TestElement } from '@angular/cdk/testing';
+
+export class SentimentRatingHarness extends ComponentHarness {
+	static hostSelector = 'app-sentiment-rating';
+
+	private _rateButtons: AsyncFactoryFn&lt;TestElement[]&gt; = this.locatorForAll('button');
+
+	public async getRate(): Promise&lt;number&gt; {
+		const btns = await this._rateButtons();
+		return (await parallel(() => btns.map(b => b.text()))).reduce((acc, curr) => curr === 'favorite' ? ++acc: acc, 0);
+	}
+
+	public async setRate(rate: number): Promise&lt;void&gt; {
+	
+	}
+}				
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack" data-auto-animate>
+					<h2>Implement your component test harness</h2>
+					<div style="width: 90%">
+						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="13-19|14|16-17|18|1-20">
+import { AsyncFactoryFn, ComponentHarness, HarnessPredicate, parallel, TestElement } from '@angular/cdk/testing';
+
+export class SentimentRatingHarness extends ComponentHarness {
+	static hostSelector = 'app-sentiment-rating';
+
+	private _rateButtons: AsyncFactoryFn&lt;TestElement[]&gt; = this.locatorForAll('button');
+
+	public async getRate(): Promise&lt;number&gt; {
+		const btns = await this._rateButtons();
+		return (await parallel(() => btns.map(b => b.text()))).reduce((acc, curr) => curr === 'favorite' ? ++acc: acc, 0);
+	}
+
+	public async setRate(rate: number): Promise&lt;void&gt; {
+		if (rate <= 0) throw Error('Rate is invalid');
+
+		const btns = await this._rateButtons();
+		if (btns.length < rate) throw Error('Rate exceeds supported rate options');
+		return (await btns[rate - 1]).click();
+	}
+}				
+						</code></pre>
+					</div>
+				</section>
+				<section class="r-vstack" data-auto-animate>
+					<h2>Implement your component test harness</h2>
+					<div style="width: 90%">
+						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="2|7,12|8-9,11|10|1-28">
+import { AsyncFactoryFn, ComponentHarness, HarnessPredicate, parallel, TestElement } from '@angular/cdk/testing';
+import { SentimentRatingHarnessFilters } from './sentiment-rating-harness-filters';
+
+export class SentimentRatingHarness extends ComponentHarness {
+	static hostSelector = 'app-sentiment-rating';
+
+	static with(options: SentimentRatingHarnessFilters): HarnessPredicate&lt;SentimentRatingHarness&gt; {
+		return new HarnessPredicate(SentimentRatingHarness, options)
+		.addOption('rate', options.rate,
+			async (harness, rate) => await harness.getRate() === rate
+		);
+	}
+
+	private _rateButtons: AsyncFactoryFn&lt;TestElement[]&gt; = this.locatorForAll('button');
+
+	public async getRate(): Promise&lt;number&gt; {
+		const btns = await this._rateButtons();
+		return (await parallel(() => btns.map(b => b.text()))).reduce((acc, curr) => curr === 'favorite' ? ++acc: acc, 0);
+	}
+
+	public async setRate(rate: number): Promise&lt;void&gt; {
+		if (rate <= 0) throw Error('Rate is invalid');
+
+		const btns = await this._rateButtons();
+		if (btns.length < rate) throw Error('Rate exceeds supported rate options');
+		return (await btns[rate - 1]).click();
+	}
+}				
+						</code></pre>
+					</div>
+				</section>
+				<section class="ad-vstack">
+					<h2>Test your component test harness</h2>
+					<div class="text-content">
+						<p class="fragment fade-in-then-semi-out">Don't forget to test your harness - treat it like public API code</p>
+						<p class="fragment fade-in-then-semi-out">Create a test host for your component and write tests utilizing your component test harness</p>
+					</div>
+				</section>
+				<section class="ad-vstack">
+					<h2>Tests that bring you joy</h2>
+					<div class="text-content">
+						<p>I hope you're inspired to use component harnesses <br/>and try writing your own custom component harnesses</p>
+					</div>
+				</section>
+				<section class="ad-vstack" data-background="#d8e4bc">
+					<h2>Want to learn more?</h2>
+					<div class="text-content">
+					  <p>Slides <a href="https://alisaduncan.github.io/component-harness/" target="_blank">alisaduncan.github.io/component-harness</a></p>
+					  <p>Tidy Task Todo App <a href="https://github.com/alisaduncan/component-harness-code" target="_blank">https://github.com/alisaduncan/component-harness-code</a></p>
+					  <p>Using Angular Material component harnesses guide on <a href="https://material.angular.io/guide/using-component-harnesses">material.angular.io</a></p>
+					  <p>Test harness API docs on <a href="https://material.angular.io/cdk/test-harnesses/overview">material.angular.io</a></p>
+					</div>
+					<div class="contact">
+						 <h4>@AlisaDuncan</h4>
+						 <div class="social">
+							<a href="https://twitter.com/AlisaDuncan"><img class="plain" src="img/twitter.png"></a>
+							<a href="https://github.com/alisaduncan"><img class="plain" src="img/github.png"></a>
+							<a href="https://dev.to/AlisaDuncan"><img class="plain" src="img/dev.png"></a>
+						 </div>
+					</div>
+				</section>
+			</div>
+		</div>
+
+		<div class="title-overlay">
+			<span>@AlisaDuncan</span> <span>Tidy up your unit tests</span>
+	  </div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="js/alisa.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				pdfSeparateFragments: false,
+				display: 'flex',
+				center: false,
+				width: '100%',
+				height: '100%',
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

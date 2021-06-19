@@ -1,0 +1,204 @@
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+
+// Include theme-specific fonts
+@import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #fbfbfb; // #f1f2f6
+$mainFont: 'Noto Sans JP', sans-serif;
+$mainColor: #484848;// #393e41
+
+$headingFont: 'Open Sans', sans-serif;
+$headingColor: #445D88; 
+$headingLetterSpacing: -0.05em;
+$headingTextShadow: none;
+
+$codeFont: 'Ubuntu Mono', monospace;
+$linkColor: #ff715b; // #ef8354;
+$linkColorHover: lighten( $linkColor, 20% );
+$selectionBackgroundColor: #465e86;
+
+$heading1Size: 2.5em;
+$heading2Size: 1.6em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+.reveal .slides section.present.ad-vstack {
+  flex-direction: column;
+  height: 80%;
+  align-items: center;
+
+  & > h2 {
+    flex: 25%;
+  }
+
+  & > div.text-content {
+    flex: 75%;
+
+    & > p+p {
+      margin-top: 2rem;
+    }
+  }
+}
+
+.reveal .slides section.present.title {
+  height: 90%;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > div.title-text {
+    margin-top: 6rem;
+
+    & > h2 {
+      margin-top: 2rem;
+      text-transform: none;
+      color: #5a5a5a
+    }
+  }
+}
+
+.reveal .slides section.present.presenter {
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90%;
+
+  & > .heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > img {
+      border-radius: 50%;
+      margin: 0 0.5em;
+      width: 12%;
+    }
+  }
+
+  & > .about {
+    font-size: 80%;
+
+    & > p+p {
+      margin-top: 3rem;
+    }
+  }
+}
+
+.reveal .slides section.present.section-title {
+  height: 80%;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    color: #fbfbfb;
+    flex: none;
+  }
+
+  // h2.section-title-dark-text {
+  //   color: #758e4f;
+  // }
+}
+
+.reveal .slides section.present > div.instructions {
+  width: 90%;
+
+  & > .step {
+    text-align: left;
+    flex: 33%;
+    align-items: start;
+    font-size: 80%;
+  }
+
+  & > .output {
+    flex: 67%;
+  }
+}
+
+.reveal pre code {
+  border-radius: 8px;
+}
+
+.reveal pre code.hide {
+  display: none;
+}
+
+.reveal p code {
+  letter-spacing: -0.04em;
+  color: #333;
+}
+
+.reveal .slides section.present > div.iframe-caption {
+  position: absolute;
+  width: 30%;
+  right: 0;
+  top: 475px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.5), 0 5px 25px rgba(0,0,0,0.2);
+  background-color: rgba(70, 94, 134, 0.85);
+  border-radius: 4px;
+  color: #f1f2f6;
+  padding: 20px;
+  font-size: 20px;
+  text-align: left;
+
+  h2 {
+    color: #e5da95;
+  }
+
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 45%;
+  }
+}
+
+.title-overlay {
+	position: absolute;
+	bottom: 3%;
+	left: 3%;
+	width: 50%;
+	span {
+		font-family: 'Open Sans', sans-serif;
+		color: #508a05;
+		margin-right: 2%;
+	}
+}
+
+div.reveal.has-dark-background + div.title-overlay {
+  span {
+    color: #e5da95;
+  }
+}
+
+.reveal.has-light-background .controls {
+	color: #5c7aad;
+}
+
+.reveal.has-dark-background .controls {
+	color: #ef8354;
+}
+
+@mixin bodyBackground() {
+	background: $backgroundColor;
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.reveal pre code {
+	max-height: 600px;
+}
+
+
