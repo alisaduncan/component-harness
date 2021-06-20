@@ -267,7 +267,7 @@ it('should apply completed class to match task completion', async () => {
 						<h3>Optimize multiple actions</h3>
 						<div style="width: 60%">
 							<pre><code class="typescript" data-trim data-line-numbers>
-								const checkbox: MatButtonHarness = await loader.getHarness(MatCheckboxHarness);
+								const checkbox: MatCheckboxHarness = await loader.getHarness(MatCheckboxHarness);
 								const [checked, label] = await parallel(() => [
 									checkbox.isChecked(),
 									checkbox.getLabelText()
