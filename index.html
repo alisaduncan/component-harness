@@ -213,7 +213,25 @@ it('should apply completed class to match task completion', async () => {
 				<section class="section-title" data-background="#424b4c">
 					<h2>The CDK testing API</h2>
 				</section>
-				<section> 
+				<section>
+					<section class="r-vstack">
+						<h3>Get a HarnessLoader for your environment</h3>
+						<div style="width: 60%">
+							<pre><code class="typescript" data-trim data-line-numbers="1-11|1-2|3|8- 9|1-11">
+								import { HarnessLoader } from '@angular/cdk/testing';
+								import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+								let loader: HarnessLoader;
+
+								describe('Tidy Test', () => {
+									beforeEach(() => {
+										TestBed.configureTestingModule({...});
+										fixture = TestBed.createComponent(TidyTestComponent);
+										loader = TestbedHarnessEnvironment.loader(fixture);
+									});
+								});
+							</code></pre>
+						</div>
+					</section>
 					<section class="r-vstack">
 						<h3>Get harnesses</h3>
 						<div style="width: 60%">
@@ -223,7 +241,7 @@ it('should apply completed class to match task completion', async () => {
 								const btns: MatButtonHarness[] = await loader.getAllHarnesses(MatButtonHarness);
 	
 								const childLoader: HarnessLoader = await loader.getChildLoader('.my-selector');
-								const childBtn: MatButtonHarness = await childLoader.getHarness(MatButton);
+								const childBtn: MatButtonHarness = await childLoader.getHarness(MatButtonHarness);
 							</code></pre>
 						</div>
 					</section>
@@ -239,7 +257,7 @@ it('should apply completed class to match task completion', async () => {
 						<h3>Access the host element</h3>
 						<div style="width: 60%;">
 							<pre><code class="typescript" data-trim data-line-numbers>
-								const btn: HarnessLoader = await loader.getHarnesses(MatButtonHarness);
+								const btn: MatButtonHarness = await loader.getHarness(MatButtonHarness);
 								const btnHost: TestElement = await btn.host();
 								await btnHost.hover();						
 							</code></pre>
@@ -249,7 +267,7 @@ it('should apply completed class to match task completion', async () => {
 						<h3>Optimize multiple actions</h3>
 						<div style="width: 60%">
 							<pre><code class="typescript" data-trim data-line-numbers>
-								const checkbox: HarnessLoader = await loader.getHarnesses(MatCheckboxHarness);
+								const checkbox: MatButtonHarness = await loader.getHarness(MatCheckboxHarness);
 								const [checked, label] = await parallel(() => [
 									checkbox.isChecked(),
 									checkbox.getLabelText()
@@ -262,7 +280,6 @@ it('should apply completed class to match task completion', async () => {
 					<h2>These are integration tests</h2>
 					<div class="text-content">
 						<p class="fragment fade-in-then-semi-out">You are manipulating child components</p>
-						<p class="fragment fade-in-then-semi-out">Test purists may prefer shallow tests</p>
 						<p class="fragment fade-in-then-semi-out">Write your tests with intention</p>
 					</div>
 				</section>
