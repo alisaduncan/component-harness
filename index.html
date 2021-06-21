@@ -249,7 +249,7 @@ it('should apply completed class to match task completion', async () => {
 						<h3>Filter for specific harnesses</h3>
 						<div style="width: 70%">
 							<pre><code class="typescript" data-trim data-line-numbers>
-								const btns: HarnessLoader = await loader.getAllHarnesses(MatButtonHarness.with({text: 'delete'}));
+								const btns: MatButtonHarness[] = await loader.getAllHarnesses(MatButtonHarness.with({text: 'delete'}));
 							</code></pre>
 						</div>
 					</section>
