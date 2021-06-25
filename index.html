@@ -52,7 +52,7 @@
 							Loves learning about, discussing, and writing automated tests
 						</p>
 						<p>
-							Enjoys reading a book and drinking a glass of red wine on the porch
+							Enjoys reading a book and drinking a glass of wine on the porch
 						</p>
 					</div>
 					<div class="contact">
@@ -215,12 +215,13 @@ it('should apply completed class to match task completion', async () => {
 					<section class="r-vstack">
 						<h3>Get a HarnessLoader for your environment</h3>
 						<div style="width: 60%">
-							<pre><code class="typescript" data-trim data-line-numbers="1-11|1-2|3|8- 9|1-11">
+							<pre><code class="typescript" data-trim data-line-numbers="1-12|1-2|5|9-10|1-12">
 								import { HarnessLoader } from '@angular/cdk/testing';
 								import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-								let loader: HarnessLoader;
 
 								describe('Tidy Test', () => {
+									let loader: HarnessLoader;
+
 									beforeEach(() => {
 										TestBed.configureTestingModule({...});
 										fixture = TestBed.createComponent(TidyTestComponent);
