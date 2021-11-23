@@ -34,14 +34,14 @@
 						<h1>Tidy up your tests</h1> 
 						<h2>use component harnesses to write tests that bring you <span style="color: #ff715b;">joy</span></h2>
 					</div>
-					<h4>Alisa Duncan</h4>
+					<h4 style="margin-top: 30rem;">Alisa Duncan</h4>
 				</section>
 					<section class="presenter" data-background="#d8e4bc">
-					<div class="heading">
+					<div class="heading" style="margin-top: 4rem;">
 					  <img class="plain" src="img/alisa-cropped.jpg" alt="Alisa Duncan">
 					  <h2>Alisa Duncan</h2>
 					</div>
-					<div class="about">
+					<div class="about" style="margin-top: 5rem;">
 						<p>
 							<span>Software Architect</span> | 
 							<span>Co-organizer <a href="https://www.meetup.com/angularkc/">AngularKC</a></span> | 
@@ -55,7 +55,7 @@
 							Enjoys reading a book and drinking a glass of wine on the porch
 						</p>
 					</div>
-					<div class="contact">
+					<div class="contact" style="margin-top: 5rem;">
 						 <h4>@AlisaDuncan</h4>
 						 <div class="social">
 							<a href="https://twitter.com/AlisaDuncan"><img class="plain" src="img/twitter.png"></a>
@@ -65,43 +65,43 @@
 					</div>
 				</section>
 				<section class="ad-vstack">
-					<h2>Tests that don't bring us joy</h2>
-					<div class="text-content">
-						<p class="fragment fade-right">Do your component tests feel "cluttered"?</p>
+					<h2 style="margin-top: 4rem;">Tests that don't bring us joy</h2>
+					<div class="text-content" style="margin-top: 5rem;">
+						<p class="fade-right">Do your component tests feel "cluttered"?</p>
 						<p class="fragment fade-up">Is it difficult to read and understand your component unit tests at a glance?</p>
 						<p class="fragment fade-left">Do you want tests to focus on testing behavior without having to deal with querying the DOM?</p>
 					</div>
 				</section>
 				<section class="section-title" data-background="https://images.unsplash.com/photo-1546387903-6d82d96ccca6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80">
-					<h3 style="margin-left: 5rem; text-align: right;">Tidy your tests and <br/>focus on meaningful tests <br/>with component harnesses</h2>
+					<h3 style="margin-top: 23rem; margin-right: 30rem;text-align: right;">Tidy your tests and <br/>focus on meaningful tests <br/>with component harnesses</h2>
 				</section>
 				<section class="ad-vstack">
-					<h2>What are component test harnesses?</h2>
-					<div class="text-content">
-					  <p class="fragment fade-in-then-semi-out">Test harnesses are a set of APIs in Angular CDK that support testing interactions with components</p>
+					<h2 style="margin-top: 4rem;">What are component test harnesses?</h2>
+					<div class="text-content" style="margin-top: 5rem;">
+					  <p class="fade-in-then-semi-out">Test harnesses are a set of APIs in Angular CDK that support testing interactions with components</p>
 					  <p class="fragment fade-in-then-semi-out">All Angular Material components have test harnesses built-in in v12</p> 
 					</div>
 				</section>
 				<section class="ad-vstack">
-					<h2>Why is this useful?</h2>
-					<div class="text-content">
-						<p class="fragment fade-in-then-semi-out">Tests that are easier to read</p>
+					<h2 style="margin-top: 4rem;">Why is this useful?</h2>
+					<div class="text-content" style="margin-top: 5rem;">
+						<p class="fade-in-then-semi-out">Tests that are easier to read</p>
 						<p class="fragment fade-in-then-semi-out">Tests that use an API to interact with a component</p>
 					  <p class="fragment fade-in-then-semi-out">Allows you and your team to write tests that focus on behavior</p>
 					</div>
 				</section>
 				<section class="section-title" data-background="#758e4f">
-					<h2>Let's write a test</h2>
+					<h2 style="margin-top: 25rem;">Let's write a test</h2>
 				</section>
-				<section data-background-iframe="https://alisaduncan.github.io/component-harness-code/" data-background-interactive>
+				<section data-background="img/tidy-task-todo-app.jpg">
 					<div class="iframe-caption">
 						<h2>A tidy list todo app</h2>
 						<p>Consider the tests you'd write for an app like this. We'll look at a task view.</p>
 					</div>
 				</section>
 				<section class="r-vstack">
-					<h2>The code we'll test</h2>
-					<div style="width: 70%;">
+					<h2 style="margin-top: 4rem;">The code we'll test</h2>
+					<div style="width: 80%; margin: auto; margin-top: 5rem;">
 						<pre><code class="html" data-trim data-line-numbers="1-14|5"><script type="text/template">
 							<div class="tidy-task">
 								<mat-checkbox color="accent"
@@ -122,8 +122,8 @@
 					</div>
 				</section>
 				<section class="r-vstack" data-transition="slide-in none" data-auto-animate>
-					<h2>Example test</h2>
-					<div style="width: 60%;">
+					<h2 style="margin-top: 4rem;">Example test</h2>
+					<div style="width: 70%; margin: auto; margin-top: 5rem;">
 						<pre data-id="test-no-harness"><code class="typescript" data-trim data-line-numbers="1-18|2-3|2,5-7|2,8|10-13|15,17|16-17|1-18">
 it('should apply completed class to match task completion', () => {
 	const matCb = fixture.debugElement.query(By.css('mat-checkbox'));
@@ -147,9 +147,9 @@ it('should apply completed class to match task completion', () => {
 					</div>
 		  		</section>
 				<section class="r-vstack" data-transition="none" data-auto-animate>
-					<h2>Example test</h2>
-					<div class="r-hstack justify-between items-start">
-						<div>
+					<h2 style="margin-top: 4rem;">Example test</h2>
+					<div class="r-hstack justify-between items-start" style="margin-top: 5rem;">
+						<div style="width: 45%;">
 							<pre data-id="test-no-harness" style="width: 98%;"><code class="typescript" data-trim data-line-numbers style="opacity: 0.6"> 
 it('should apply completed class to match task completion', () => {
 	const matCb = fixture.debugElement.query(By.css('mat-checkbox'));
@@ -190,8 +190,8 @@ it('should apply completed class to match task completion', async () => {
 					</div>
 		  		</section>
 				<section class="r-vstack" data-transition="none slide-out" data-auto-animate>
-					<h2>Example test</h2>
-					<div style="width: 60%;">
+					<h2 style="margin-top: 4rem;">Example test</h2>
+					<div style="width: 70%; margin: auto;">
 						<pre data-id="test-with-harness"><code class="typescript" data-trim data-line-numbers>
 it('should apply completed class to match task completion', async () => {
 	const cb = await loader.getHarness(MatCheckboxHarness);
@@ -209,12 +209,12 @@ it('should apply completed class to match task completion', async () => {
 					</div>
 		  		</section>
 				<section class="section-title" data-background="#424b4c">
-					<h2>The CDK testing API</h2>
+					<h2 style="margin-top: 25rem;">The CDK testing API</h2>
 				</section>
 				<section>
 					<section class="r-vstack">
-						<h3>Get a HarnessLoader for your environment</h3>
-						<div style="width: 60%">
+						<h3 style="margin-top: 4rem;">Get a HarnessLoader for your environment</h3>
+						<div style="width: 70%; margin: auto; margin-top: 5rem;">
 							<pre><code class="typescript" data-trim data-line-numbers="1-12|1-2|5|9-10|1-12">
 								import { HarnessLoader } from '@angular/cdk/testing';
 								import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
@@ -232,8 +232,8 @@ it('should apply completed class to match task completion', async () => {
 						</div>
 					</section>
 					<section class="r-vstack">
-						<h3>Get harnesses</h3>
-						<div style="width: 60%">
+						<h3 style="margin-top: 4rem;">Get harnesses</h3>
+						<div style="width: 70%; margin: auto; margin-top: 5rem;">
 							<pre><code class="typescript" data-trim data-line-numbers="1-6|1|3|5-6|1-6">
 								const btn: MatButtonHarness = await loader.getHarness(MatButtonHarness);
 								
@@ -245,8 +245,8 @@ it('should apply completed class to match task completion', async () => {
 						</div>
 					</section>
 					<section class="r-vstack">
-						<h3>Filter for specific harnesses</h3>
-						<div style="width: 70%">
+						<h3 style="margin-top: 4rem;">Filter for specific harnesses</h3>
+						<div style="width: 55%; margin: auto; margin-top: 5rem;">
 							<pre><code class="typescript" data-trim data-line-numbers>
 								const btns: MatButtonHarness[] = await loader.getAllHarnesses(
 									MatButtonHarness.with({text: 'delete'})
@@ -255,8 +255,8 @@ it('should apply completed class to match task completion', async () => {
 						</div>
 					</section>
 					<section class="r-vstack">
-						<h3>Access the host element</h3>
-						<div style="width: 60%;">
+						<h3 style="margin-top: 4rem;">Access the host element</h3>
+						<div style="width: 65%; margin: auto; margin-top: 5rem;">
 							<pre><code class="typescript" data-trim data-line-numbers>
 								const btn: MatButtonHarness = await loader.getHarness(MatButtonHarness);
 								const btnHost: TestElement = await btn.host();
@@ -265,8 +265,8 @@ it('should apply completed class to match task completion', async () => {
 						</div>
 					</section>
 					<section class="r-vstack">
-						<h3>Optimize multiple actions</h3>
-						<div style="width: 60%">
+						<h3 style="margin-top: 4rem;">Optimize multiple actions</h3>
+						<div style="width: 70%; margin: auto; margin-top: 5rem;">
 							<pre><code class="typescript" data-trim data-line-numbers>
 								const checkbox: MatCheckboxHarness = await loader.getHarness(MatCheckboxHarness);
 								const [checked, label] = await parallel(() => [
@@ -278,24 +278,24 @@ it('should apply completed class to match task completion', async () => {
 					</section>
 				</section>
 				<section class="ad-vstack">
-					<h2>These are integration tests</h2>
-					<div class="text-content">
-						<p class="fragment fade-in-then-semi-out">You are manipulating child components</p>
+					<h2 style="margin-top: 4rem;">These are integration tests</h2>
+					<div class="text-content" style="margin-top: 5rem;">
+						<p class="fade-in-then-semi-out">You are manipulating child components</p>
 						<p class="fragment fade-in-then-semi-out">Write your tests with intention</p>
 					</div>
 				</section>
 				<section class="section-title" data-background="#445d88">
-					<h2>Implementing a test harness for a custom component</h2>
+					<h2 style="margin-top: 25rem;">Implementing a test harness for a custom component</h2>
 			  	</section>
-				<section data-background-iframe="https://alisaduncan.github.io/component-harness-code/" data-background-interactive>
+				<section data-background="img/tidy-task-todo-app.jpg">
 					<div class="iframe-caption">
 						<h2>A tidy list todo app</h2>
 						<p>Take a look at the sentiment rating. We'll write a test harness for the component.</p>
 					</div>
 				</section>
 				<section class="r-vstack">
-					<h2>The component we'll write a harness for</h2>
-					<div style="width: 70%;">
+					<h2 style="margin-top: 4rem;">The component we'll write a harness for</h2>
+					<div style="width: 65%; margin: auto; margin-top: 5rem;">
 						<pre><code class="typescript" data-trim data-line-numbers="1-23|2|4,9-11"><script type="text/template">
 							@Component({
 								selector: 'app-sentiment-rating',
@@ -325,8 +325,8 @@ it('should apply completed class to match task completion', async () => {
 					</div>
 				</section>
 				<section class="r-vstack">
-					<h2>Define the filters interface to support querying</h2>
-					<div style="width: 60%;">
+					<h2 style="margin-top: 4rem;">Define the filters interface to support querying</h2>
+					<div style="width: 70%; margin: auto; margin-top: 5rem;">
 						<pre><code class="typescript" data-trim data-line-numbers="1-5|3,1|4|1-5">
 import { BaseHarnessFilters } from '@angular/cdk/testing';
 
@@ -337,8 +337,8 @@ export interface SentimentRatingHarnessFilters extends BaseHarnessFilters {
 					</div>
 				</section>
 				<section class="r-vstack" data-auto-animate>
-					<h2>Implement your component test harness</h2>
-					<div style="width: 90%">
+					<h2 style="margin-top: 4rem;">Implement your component test harness</h2>
+					<div style="width: 60%; margin: auto; margin-top: 5rem;">
 						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers>
 import { ComponentHarness } from '@angular/cdk/testing';
 
@@ -349,8 +349,8 @@ export class SentimentRatingHarness extends ComponentHarness {
 					</div>
 				</section>
 				<section class="r-vstack" data-auto-animate>
-					<h2>Implement your component test harness</h2>
-					<div style="width: 90%">
+					<h2 style="margin-top: 4rem;">Implement your component test harness</h2>
+					<div style="width: 60%; margin: auto; margin-top: 5rem;">
 						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="4">
 import { ComponentHarness } from '@angular/cdk/testing';
 
@@ -361,8 +361,8 @@ export class SentimentRatingHarness extends ComponentHarness {
 					</div>
 				</section>
 				<section class="r-vstack" data-auto-animate>
-					<h2>Implement your component test harness</h2>
-					<div style="width: 90%">
+					<h2 style="margin-top: 4rem;">Implement your component test harness</h2>
+					<div style="width: 80%; margin: auto; margin-top: 5rem;">
 						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="6|8-10|12-14|1-15">
 import { AsyncFactoryFn, ComponentHarness, TestElement } from '@angular/cdk/testing';
 
@@ -383,8 +383,8 @@ export class SentimentRatingHarness extends ComponentHarness {
 					</div>
 				</section>
 				<section class="r-vstack" data-auto-animate>
-					<h2>Implement your component test harness</h2>
-					<div style="width: 90%">
+					<h2 style="margin-top: 4rem;">Implement your component test harness</h2>
+					<div style="width: 99%; margin: auto;">
 						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="8-11|9|10|1-16">
 import { AsyncFactoryFn, ComponentHarness, parallel, TestElement } from '@angular/cdk/testing';
 
@@ -406,8 +406,8 @@ export class SentimentRatingHarness extends ComponentHarness {
 					</div>
 				</section>
 				<section class="r-vstack" data-auto-animate>
-					<h2>Implement your component test harness</h2>
-					<div style="width: 90%">
+					<h2 style="margin-top: 4rem;">Implement your component test harness</h2>
+					<div style="width: 99%; margin: auto; margin-top: 3rem;">
 						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="13-19|14|16-17|18|1-20">
 import { AsyncFactoryFn, ComponentHarness, HarnessPredicate, parallel, TestElement } from '@angular/cdk/testing';
 
@@ -433,8 +433,8 @@ export class SentimentRatingHarness extends ComponentHarness {
 					</div>
 				</section>
 				<section class="r-vstack" data-auto-animate>
-					<h2>Implement your component test harness</h2>
-					<div style="width: 90%">
+					<h2 style="margin-top: 4rem;">Implement your component test harness</h2>
+					<div style="width: 99%; margin: auto;">
 						<pre data-id="writing-component-harness"><code class="typescript" data-trim data-line-numbers="2|7,12|8-9,11|10|1-28">
 import { AsyncFactoryFn, ComponentHarness, HarnessPredicate, parallel, TestElement } from '@angular/cdk/testing';
 import { SentimentRatingHarnessFilters } from './sentiment-rating-harness-filters';
@@ -468,34 +468,34 @@ export class SentimentRatingHarness extends ComponentHarness {
 					</div>
 				</section>
 				<section class="ad-vstack">
-					<h2>Scales with component complexity</h2>
-					<div class="text-content">
-						<p class="fragment fade-in-then-semi-out">More methods for locating elements</p>
+					<h2 style="margin-top: 4rem;">Scales with component complexity</h2>
+					<div class="text-content" style="margin-top: 5rem;">
+						<p class="fade-in-then-semi-out">More methods for locating elements</p>
 						<p class="fragment fade-in-then-semi-out">Supports components that host other components</p>
 					</div>
 				</section>
 				<section class="ad-vstack">
-					<h2>Test your component test harness</h2>
-					<div class="text-content">
-						<p class="fragment fade-in-then-semi-out">Don't forget to test your harness - treat it like publishing an API</p>
+					<h2 style="margin-top: 4rem;">Test your component test harness</h2>
+					<div class="text-content" style="margin-top: 5rem;">
+						<p class="fade-in-then-semi-out">Don't forget to test your harness - treat it like publishing an API</p>
 						<p class="fragment fade-in-then-semi-out">Create a test host for your component and write tests utilizing your component test harness</p>
 					</div>
 				</section>
 				<section class="ad-vstack" data-background="https://images.unsplash.com/photo-1449247709967-d4461a6a6103?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80">
-					<h2>Tidy tests that bring you joy</h2>
-					<div class="text-content">
+					<h2 style="margin-top: 4rem;">Tidy tests that bring you joy</h2>
+					<div class="text-content" style="margin-top: 5rem;">
 						<p>Are you inspired to to tidy up your tests?</p>
 					</div>
 				</section>
 				<section class="ad-vstack" data-background="#d8e4bc">
-					<h2>Want to learn more?</h2>
-					<div class="text-content">
+					<h2 style="margin-top: 4rem;">Want to learn more?</h2>
+					<div class="text-content" style="margin-top: 5rem;">
 					  <p>Slides <a href="https://alisaduncan.github.io/component-harness/" target="_blank">alisaduncan.github.io/component-harness</a></p>
 					  <p>Tidy Task Todo App <a href="https://github.com/alisaduncan/component-harness-code" target="_blank">https://github.com/alisaduncan/component-harness-code</a></p>
 					  <p>Using Angular Material component harnesses guide on <a href="https://material.angular.io/guide/using-component-harnesses">material.angular.io</a></p>
 					  <p>Test harness API docs on <a href="https://material.angular.io/cdk/test-harnesses/overview">material.angular.io</a></p>
 					</div>
-					<div class="contact">
+					<div class="contact" style="margin-top: 7rem;">
 						 <h4>@AlisaDuncan</h4>
 						 <div class="social">
 							<a href="https://twitter.com/AlisaDuncan"><img class="plain" src="img/twitter.png"></a>
@@ -521,7 +521,6 @@ export class SentimentRatingHarness extends ComponentHarness {
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-				pdfSeparateFragments: false,
 				display: 'flex',
 				center: false,
 				width: '100%',
